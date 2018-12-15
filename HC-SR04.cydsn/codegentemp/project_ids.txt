@@ -1,0 +1,16 @@
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\Led.cydsn\Led.cyprj|c479b6c9-c9b3-4f14-bdea-4c642cd7df77
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|06e04b70-6cdc-4b70-a8c9-1c9809a2b074
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|f7fde179-fa23-4c78-950e-7e239adc9966
+C:\Users\jdrd3\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|d0f49855-032e-43c6-8f59-3786bf22c009
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|e7e3352f-6b97-434a-8261-f825e92d81be
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|89d84e8c-6aff-4176-bec7-2dc101dc4bca
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|6b2e802f-9333-40f5-9dc1-e110246fbd7a
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\LCD.cydsn\LCD.cyprj|d3624e0f-5160-4685-b462-fa70891c24d9
+D:\Nico\Archivos\lib_psoc\CharLCDmp_Demo3\CharLCDmpLib.cylib\CharLCDmpLib.cyprj|d4f9d13f-655f-4d5f-a150-ce1583aa6750
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\PWM.cydsn\PWM.cyprj|4af9cf84-6af7-461b-ad74-f7c56a4590a1
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\ADC.cydsn\ADC.cyprj|4c7f32bc-8ef9-4394-bffd-d2836531dcf4
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\I2C.cydsn\I2C.cyprj|2ec46802-1b64-4336-ac26-055dec0850a4
+D:\Nico\Archivos\lib_psoc\Compass\Compass.cydsn\Compass.cyprj|4e502fec-5863-4cd4-b9af-96ef8aaf7908
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\Proto_carro_V0.1.cydsn\Proto_carro_V0.1.cyprj|2d9b6759-f6a9-4c22-9d70-c40dff6c72f3
+C:\Users\jdrd3\Documents\PSoC Creator\Ejemplos\HC-SR04.cydsn\HC-SR04.cyprj|f7b28251-56a4-4f16-b77e-c9c8ec3253a8
+D:\Nico\Archivos\lib_psoc\CharLCDmpLib.cylib\CharLCDmpLib.cyprj|0e275ded-114a-4f29-a0e1-e958e3b90cdb

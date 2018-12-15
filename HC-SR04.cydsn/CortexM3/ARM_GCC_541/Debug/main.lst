@@ -1,0 +1,991 @@
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	__aeabi_i2d
+  20              		.global	__aeabi_ddiv
+  21              		.global	__aeabi_d2f
+  22              		.global	__aeabi_f2uiz
+  23              		.section	.text.main,"ax",%progbits
+  24              		.align	2
+  25              		.global	main
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	main, %function
+  29              	main:
+  30              	.LFB64:
+  31              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** #include <stdio.h>
+  14:main.c        **** #include <stdlib.h>
+  15:main.c        **** 
+  16:main.c        **** int Contador=0;
+  17:main.c        **** float Distancia;
+  18:main.c        **** char imprimir[9];
+  19:main.c        **** 
+  20:main.c        **** int main(void)
+  21:main.c        **** {
+  32              		.loc 1 21 0
+  33              		.cfi_startproc
+  34              		@ Volatile: function does not return.
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 2
+
+
+  37 0000 08B5     		push	{r3, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 3, -8
+  40              		.cfi_offset 14, -4
+  22:main.c        ****     //CyGlobalIntEnable; /* Enable global interrupts. */
+  23:main.c        ****     LCD_Start();
+  41              		.loc 1 23 0
+  42 0002 FFF7FEFF 		bl	LCD_Start
+  43              	.LVL0:
+  24:main.c        ****     Timer_Start();
+  44              		.loc 1 24 0
+  45 0006 FFF7FEFF 		bl	Timer_Start
+  46              	.LVL1:
+  25:main.c        ****     LCD_Position(0,0);
+  47              		.loc 1 25 0
+  48 000a 0021     		movs	r1, #0
+  49 000c 0846     		mov	r0, r1
+  50 000e FFF7FEFF 		bl	LCD_Position
+  51              	.LVL2:
+  26:main.c        ****     LCD_PrintString("Distancia:");
+  52              		.loc 1 26 0
+  53 0012 2148     		ldr	r0, .L7
+  54 0014 FFF7FEFF 		bl	LCD_PrintString
+  55              	.LVL3:
+  27:main.c        ****     LCD_Position(1,9);
+  56              		.loc 1 27 0
+  57 0018 0921     		movs	r1, #9
+  58 001a 0120     		movs	r0, #1
+  59 001c FFF7FEFF 		bl	LCD_Position
+  60              	.LVL4:
+  28:main.c        ****     LCD_PrintString("cm");
+  61              		.loc 1 28 0
+  62 0020 1E48     		ldr	r0, .L7+4
+  63 0022 FFF7FEFF 		bl	LCD_PrintString
+  64              	.LVL5:
+  65 0026 0BE0     		b	.L2
+  66              	.L3:
+  29:main.c        ****     
+  30:main.c        ****     for(;;)
+  31:main.c        ****     {
+  32:main.c        ****         while(Ekko_Read()==0){      //Generacion de pulso en trigger
+  33:main.c        ****             Control_Write(1);
+  67              		.loc 1 33 0
+  68 0028 0120     		movs	r0, #1
+  69 002a FFF7FEFF 		bl	Control_Write
+  70              	.LVL6:
+  34:main.c        ****             CyDelay(10u);
+  71              		.loc 1 34 0
+  72 002e 0A20     		movs	r0, #10
+  73 0030 FFF7FEFF 		bl	CyDelay
+  74              	.LVL7:
+  35:main.c        ****             Control_Write(0);
+  75              		.loc 1 35 0
+  76 0034 0020     		movs	r0, #0
+  77 0036 FFF7FEFF 		bl	Control_Write
+  78              	.LVL8:
+  36:main.c        ****             CyDelay(1);             //Espera pulsos generados por el sensor
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 3
+
+
+  79              		.loc 1 36 0
+  80 003a 0120     		movs	r0, #1
+  81 003c FFF7FEFF 		bl	CyDelay
+  82              	.LVL9:
+  83              	.L2:
+  32:main.c        ****             Control_Write(1);
+  84              		.loc 1 32 0
+  85 0040 FFF7FEFF 		bl	Ekko_Read
+  86              	.LVL10:
+  87 0044 0028     		cmp	r0, #0
+  88 0046 EFD0     		beq	.L3
+  89              	.L4:
+  37:main.c        ****          }
+  38:main.c        ****         
+  39:main.c        ****         while(Ekko_Read()==1){};
+  90              		.loc 1 39 0 discriminator 1
+  91 0048 FFF7FEFF 		bl	Ekko_Read
+  92              	.LVL11:
+  93 004c 0128     		cmp	r0, #1
+  94 004e FBD0     		beq	.L4
+  40:main.c        ****         Contador=65535-Timer_ReadCounter(); // timer cuenta descendentemente;
+  95              		.loc 1 40 0
+  96 0050 FFF7FEFF 		bl	Timer_ReadCounter
+  97              	.LVL12:
+  98 0054 C0F57F40 		rsb	r0, r0, #65280
+  99 0058 FF30     		adds	r0, r0, #255
+ 100 005a 114B     		ldr	r3, .L7+8
+ 101 005c 1860     		str	r0, [r3]
+  41:main.c        ****         Distancia = Contador/58.0;          // Formula datasheet para pasar a "cm"
+ 102              		.loc 1 41 0
+ 103 005e FFF7FEFF 		bl	__aeabi_i2d
+ 104              	.LVL13:
+ 105 0062 0022     		movs	r2, #0
+ 106 0064 0F4B     		ldr	r3, .L7+12
+ 107 0066 FFF7FEFF 		bl	__aeabi_ddiv
+ 108              	.LVL14:
+ 109 006a 0F4C     		ldr	r4, .L7+16
+ 110 006c FFF7FEFF 		bl	__aeabi_d2f
+ 111              	.LVL15:
+ 112 0070 2060     		str	r0, [r4]	@ float
+  42:main.c        ****         
+  43:main.c        ****         LCD_Position(1,4);
+ 113              		.loc 1 43 0
+ 114 0072 0421     		movs	r1, #4
+ 115 0074 0120     		movs	r0, #1
+ 116 0076 FFF7FEFF 		bl	LCD_Position
+ 117              	.LVL16:
+  44:main.c        ****         LCD_PrintString("     ");
+ 118              		.loc 1 44 0
+ 119 007a 0C48     		ldr	r0, .L7+20
+ 120 007c FFF7FEFF 		bl	LCD_PrintString
+ 121              	.LVL17:
+  45:main.c        ****         LCD_Position(1,4);
+ 122              		.loc 1 45 0
+ 123 0080 0421     		movs	r1, #4
+ 124 0082 0120     		movs	r0, #1
+ 125 0084 FFF7FEFF 		bl	LCD_Position
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 4
+
+
+ 126              	.LVL18:
+  46:main.c        ****         LCD_PrintNumber(Distancia);
+ 127              		.loc 1 46 0
+ 128 0088 2068     		ldr	r0, [r4]	@ float
+ 129 008a FFF7FEFF 		bl	__aeabi_f2uiz
+ 130              	.LVL19:
+ 131 008e 80B2     		uxth	r0, r0
+ 132 0090 FFF7FEFF 		bl	LCD_PrintNumber
+ 133              	.LVL20:
+  47:main.c        ****         
+  48:main.c        **** /*
+  49:main.c        ****        sprintf(imprimir,"%.1f cm   ",Distancia);   // ir system, heap size 0x200,
+  50:main.c        ****        LCD_Position(1,4);                          // project, built settings, linkeer general, use
+  51:main.c        ****        LCD_PrintString(imprimir);
+  52:main.c        **** */        
+  53:main.c        ****     }
+ 134              		.loc 1 53 0
+ 135 0094 D4E7     		b	.L2
+ 136              	.L8:
+ 137 0096 00BF     		.align	2
+ 138              	.L7:
+ 139 0098 00000000 		.word	.LC0
+ 140 009c 0C000000 		.word	.LC1
+ 141 00a0 00000000 		.word	.LANCHOR0
+ 142 00a4 00004D40 		.word	1078788096
+ 143 00a8 00000000 		.word	Distancia
+ 144 00ac 10000000 		.word	.LC2
+ 145              		.cfi_endproc
+ 146              	.LFE64:
+ 147              		.size	main, .-main
+ 148              		.comm	imprimir,9,4
+ 149              		.comm	Distancia,4,4
+ 150              		.global	Contador
+ 151              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 152              		.align	2
+ 153              	.LC0:
+ 154 0000 44697374 		.ascii	"Distancia:\000"
+ 154      616E6369 
+ 154      613A00
+ 155 000b 00       		.space	1
+ 156              	.LC1:
+ 157 000c 636D00   		.ascii	"cm\000"
+ 158 000f 00       		.space	1
+ 159              	.LC2:
+ 160 0010 20202020 		.ascii	"     \000"
+ 160      2000
+ 161              		.bss
+ 162              		.align	2
+ 163              		.set	.LANCHOR0,. + 0
+ 164              		.type	Contador, %object
+ 165              		.size	Contador, 4
+ 166              	Contador:
+ 167 0000 00000000 		.space	4
+ 168              		.text
+ 169              	.Letext0:
+ 170              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 171              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 5
+
+
+ 172              		.file 4 "Generated_Source\\PSoC5/core_cm3.h"
+ 173              		.file 5 "Generated_Source\\PSoC5/LCD.h"
+ 174              		.file 6 "Generated_Source\\PSoC5/Timer.h"
+ 175              		.file 7 "Generated_Source\\PSoC5/Control.h"
+ 176              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
+ 177              		.file 9 "Generated_Source\\PSoC5/Ekko.h"
+ 178              		.section	.debug_info,"",%progbits
+ 179              	.Ldebug_info0:
+ 180 0000 99020000 		.4byte	0x299
+ 181 0004 0400     		.2byte	0x4
+ 182 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 183 000a 04       		.byte	0x4
+ 184 000b 01       		.uleb128 0x1
+ 185 000c 49000000 		.4byte	.LASF29
+ 186 0010 0C       		.byte	0xc
+ 187 0011 9D010000 		.4byte	.LASF30
+ 188 0015 B3010000 		.4byte	.LASF31
+ 189 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 190 001d 00000000 		.4byte	0
+ 191 0021 00000000 		.4byte	.Ldebug_line0
+ 192 0025 02       		.uleb128 0x2
+ 193 0026 01       		.byte	0x1
+ 194 0027 06       		.byte	0x6
+ 195 0028 0E020000 		.4byte	.LASF0
+ 196 002c 02       		.uleb128 0x2
+ 197 002d 01       		.byte	0x1
+ 198 002e 08       		.byte	0x8
+ 199 002f 3B000000 		.4byte	.LASF1
+ 200 0033 02       		.uleb128 0x2
+ 201 0034 02       		.byte	0x2
+ 202 0035 05       		.byte	0x5
+ 203 0036 A9010000 		.4byte	.LASF2
+ 204 003a 02       		.uleb128 0x2
+ 205 003b 02       		.byte	0x2
+ 206 003c 07       		.byte	0x7
+ 207 003d E1000000 		.4byte	.LASF3
+ 208 0041 03       		.uleb128 0x3
+ 209 0042 00000000 		.4byte	.LASF9
+ 210 0046 02       		.byte	0x2
+ 211 0047 3F       		.byte	0x3f
+ 212 0048 4C000000 		.4byte	0x4c
+ 213 004c 02       		.uleb128 0x2
+ 214 004d 04       		.byte	0x4
+ 215 004e 05       		.byte	0x5
+ 216 004f F9010000 		.4byte	.LASF4
+ 217 0053 02       		.uleb128 0x2
+ 218 0054 04       		.byte	0x4
+ 219 0055 07       		.byte	0x7
+ 220 0056 0A010000 		.4byte	.LASF5
+ 221 005a 02       		.uleb128 0x2
+ 222 005b 08       		.byte	0x8
+ 223 005c 05       		.byte	0x5
+ 224 005d 8F010000 		.4byte	.LASF6
+ 225 0061 02       		.uleb128 0x2
+ 226 0062 08       		.byte	0x8
+ 227 0063 07       		.byte	0x7
+ 228 0064 54010000 		.4byte	.LASF7
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 6
+
+
+ 229 0068 04       		.uleb128 0x4
+ 230 0069 04       		.byte	0x4
+ 231 006a 05       		.byte	0x5
+ 232 006b 696E7400 		.ascii	"int\000"
+ 233 006f 02       		.uleb128 0x2
+ 234 0070 04       		.byte	0x4
+ 235 0071 07       		.byte	0x7
+ 236 0072 47010000 		.4byte	.LASF8
+ 237 0076 03       		.uleb128 0x3
+ 238 0077 23000000 		.4byte	.LASF10
+ 239 007b 03       		.byte	0x3
+ 240 007c 2C       		.byte	0x2c
+ 241 007d 41000000 		.4byte	0x41
+ 242 0081 02       		.uleb128 0x2
+ 243 0082 04       		.byte	0x4
+ 244 0083 04       		.byte	0x4
+ 245 0084 2B000000 		.4byte	.LASF11
+ 246 0088 02       		.uleb128 0x2
+ 247 0089 08       		.byte	0x8
+ 248 008a 04       		.byte	0x4
+ 249 008b 1C000000 		.4byte	.LASF12
+ 250 008f 02       		.uleb128 0x2
+ 251 0090 01       		.byte	0x1
+ 252 0091 08       		.byte	0x8
+ 253 0092 A4010000 		.4byte	.LASF13
+ 254 0096 02       		.uleb128 0x2
+ 255 0097 08       		.byte	0x8
+ 256 0098 04       		.byte	0x4
+ 257 0099 02020000 		.4byte	.LASF14
+ 258 009d 02       		.uleb128 0x2
+ 259 009e 04       		.byte	0x4
+ 260 009f 07       		.byte	0x7
+ 261 00a0 86010000 		.4byte	.LASF15
+ 262 00a4 05       		.uleb128 0x5
+ 263 00a5 1C010000 		.4byte	.LASF32
+ 264 00a9 01       		.byte	0x1
+ 265 00aa 14       		.byte	0x14
+ 266 00ab 68000000 		.4byte	0x68
+ 267 00af 00000000 		.4byte	.LFB64
+ 268 00b3 B0000000 		.4byte	.LFE64-.LFB64
+ 269 00b7 01       		.uleb128 0x1
+ 270 00b8 9C       		.byte	0x9c
+ 271 00b9 E5010000 		.4byte	0x1e5
+ 272 00bd 06       		.uleb128 0x6
+ 273 00be 06000000 		.4byte	.LVL0
+ 274 00c2 39020000 		.4byte	0x239
+ 275 00c6 06       		.uleb128 0x6
+ 276 00c7 0A000000 		.4byte	.LVL1
+ 277 00cb 44020000 		.4byte	0x244
+ 278 00cf 07       		.uleb128 0x7
+ 279 00d0 12000000 		.4byte	.LVL2
+ 280 00d4 4F020000 		.4byte	0x24f
+ 281 00d8 E7000000 		.4byte	0xe7
+ 282 00dc 08       		.uleb128 0x8
+ 283 00dd 01       		.uleb128 0x1
+ 284 00de 50       		.byte	0x50
+ 285 00df 01       		.uleb128 0x1
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 7
+
+
+ 286 00e0 30       		.byte	0x30
+ 287 00e1 08       		.uleb128 0x8
+ 288 00e2 01       		.uleb128 0x1
+ 289 00e3 51       		.byte	0x51
+ 290 00e4 01       		.uleb128 0x1
+ 291 00e5 30       		.byte	0x30
+ 292 00e6 00       		.byte	0
+ 293 00e7 07       		.uleb128 0x7
+ 294 00e8 18000000 		.4byte	.LVL3
+ 295 00ec 5A020000 		.4byte	0x25a
+ 296 00f0 FE000000 		.4byte	0xfe
+ 297 00f4 08       		.uleb128 0x8
+ 298 00f5 01       		.uleb128 0x1
+ 299 00f6 50       		.byte	0x50
+ 300 00f7 05       		.uleb128 0x5
+ 301 00f8 03       		.byte	0x3
+ 302 00f9 00000000 		.4byte	.LC0
+ 303 00fd 00       		.byte	0
+ 304 00fe 07       		.uleb128 0x7
+ 305 00ff 20000000 		.4byte	.LVL4
+ 306 0103 4F020000 		.4byte	0x24f
+ 307 0107 16010000 		.4byte	0x116
+ 308 010b 08       		.uleb128 0x8
+ 309 010c 01       		.uleb128 0x1
+ 310 010d 50       		.byte	0x50
+ 311 010e 01       		.uleb128 0x1
+ 312 010f 31       		.byte	0x31
+ 313 0110 08       		.uleb128 0x8
+ 314 0111 01       		.uleb128 0x1
+ 315 0112 51       		.byte	0x51
+ 316 0113 01       		.uleb128 0x1
+ 317 0114 39       		.byte	0x39
+ 318 0115 00       		.byte	0
+ 319 0116 07       		.uleb128 0x7
+ 320 0117 26000000 		.4byte	.LVL5
+ 321 011b 5A020000 		.4byte	0x25a
+ 322 011f 2D010000 		.4byte	0x12d
+ 323 0123 08       		.uleb128 0x8
+ 324 0124 01       		.uleb128 0x1
+ 325 0125 50       		.byte	0x50
+ 326 0126 05       		.uleb128 0x5
+ 327 0127 03       		.byte	0x3
+ 328 0128 0C000000 		.4byte	.LC1
+ 329 012c 00       		.byte	0
+ 330 012d 07       		.uleb128 0x7
+ 331 012e 2E000000 		.4byte	.LVL6
+ 332 0132 65020000 		.4byte	0x265
+ 333 0136 40010000 		.4byte	0x140
+ 334 013a 08       		.uleb128 0x8
+ 335 013b 01       		.uleb128 0x1
+ 336 013c 50       		.byte	0x50
+ 337 013d 01       		.uleb128 0x1
+ 338 013e 31       		.byte	0x31
+ 339 013f 00       		.byte	0
+ 340 0140 07       		.uleb128 0x7
+ 341 0141 34000000 		.4byte	.LVL7
+ 342 0145 70020000 		.4byte	0x270
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 8
+
+
+ 343 0149 53010000 		.4byte	0x153
+ 344 014d 08       		.uleb128 0x8
+ 345 014e 01       		.uleb128 0x1
+ 346 014f 50       		.byte	0x50
+ 347 0150 01       		.uleb128 0x1
+ 348 0151 3A       		.byte	0x3a
+ 349 0152 00       		.byte	0
+ 350 0153 07       		.uleb128 0x7
+ 351 0154 3A000000 		.4byte	.LVL8
+ 352 0158 65020000 		.4byte	0x265
+ 353 015c 66010000 		.4byte	0x166
+ 354 0160 08       		.uleb128 0x8
+ 355 0161 01       		.uleb128 0x1
+ 356 0162 50       		.byte	0x50
+ 357 0163 01       		.uleb128 0x1
+ 358 0164 30       		.byte	0x30
+ 359 0165 00       		.byte	0
+ 360 0166 07       		.uleb128 0x7
+ 361 0167 40000000 		.4byte	.LVL9
+ 362 016b 70020000 		.4byte	0x270
+ 363 016f 79010000 		.4byte	0x179
+ 364 0173 08       		.uleb128 0x8
+ 365 0174 01       		.uleb128 0x1
+ 366 0175 50       		.byte	0x50
+ 367 0176 01       		.uleb128 0x1
+ 368 0177 31       		.byte	0x31
+ 369 0178 00       		.byte	0
+ 370 0179 06       		.uleb128 0x6
+ 371 017a 44000000 		.4byte	.LVL10
+ 372 017e 7B020000 		.4byte	0x27b
+ 373 0182 06       		.uleb128 0x6
+ 374 0183 4C000000 		.4byte	.LVL11
+ 375 0187 7B020000 		.4byte	0x27b
+ 376 018b 06       		.uleb128 0x6
+ 377 018c 54000000 		.4byte	.LVL12
+ 378 0190 86020000 		.4byte	0x286
+ 379 0194 07       		.uleb128 0x7
+ 380 0195 7A000000 		.4byte	.LVL16
+ 381 0199 4F020000 		.4byte	0x24f
+ 382 019d AC010000 		.4byte	0x1ac
+ 383 01a1 08       		.uleb128 0x8
+ 384 01a2 01       		.uleb128 0x1
+ 385 01a3 50       		.byte	0x50
+ 386 01a4 01       		.uleb128 0x1
+ 387 01a5 31       		.byte	0x31
+ 388 01a6 08       		.uleb128 0x8
+ 389 01a7 01       		.uleb128 0x1
+ 390 01a8 51       		.byte	0x51
+ 391 01a9 01       		.uleb128 0x1
+ 392 01aa 34       		.byte	0x34
+ 393 01ab 00       		.byte	0
+ 394 01ac 07       		.uleb128 0x7
+ 395 01ad 80000000 		.4byte	.LVL17
+ 396 01b1 5A020000 		.4byte	0x25a
+ 397 01b5 C3010000 		.4byte	0x1c3
+ 398 01b9 08       		.uleb128 0x8
+ 399 01ba 01       		.uleb128 0x1
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 9
+
+
+ 400 01bb 50       		.byte	0x50
+ 401 01bc 05       		.uleb128 0x5
+ 402 01bd 03       		.byte	0x3
+ 403 01be 10000000 		.4byte	.LC2
+ 404 01c2 00       		.byte	0
+ 405 01c3 07       		.uleb128 0x7
+ 406 01c4 88000000 		.4byte	.LVL18
+ 407 01c8 4F020000 		.4byte	0x24f
+ 408 01cc DB010000 		.4byte	0x1db
+ 409 01d0 08       		.uleb128 0x8
+ 410 01d1 01       		.uleb128 0x1
+ 411 01d2 50       		.byte	0x50
+ 412 01d3 01       		.uleb128 0x1
+ 413 01d4 31       		.byte	0x31
+ 414 01d5 08       		.uleb128 0x8
+ 415 01d6 01       		.uleb128 0x1
+ 416 01d7 51       		.byte	0x51
+ 417 01d8 01       		.uleb128 0x1
+ 418 01d9 34       		.byte	0x34
+ 419 01da 00       		.byte	0
+ 420 01db 06       		.uleb128 0x6
+ 421 01dc 94000000 		.4byte	.LVL20
+ 422 01e0 91020000 		.4byte	0x291
+ 423 01e4 00       		.byte	0
+ 424 01e5 09       		.uleb128 0x9
+ 425 01e6 FD000000 		.4byte	.LASF16
+ 426 01ea 04       		.byte	0x4
+ 427 01eb 1207     		.2byte	0x712
+ 428 01ed F1010000 		.4byte	0x1f1
+ 429 01f1 0A       		.uleb128 0xa
+ 430 01f2 76000000 		.4byte	0x76
+ 431 01f6 0B       		.uleb128 0xb
+ 432 01f7 F4000000 		.4byte	.LASF17
+ 433 01fb 01       		.byte	0x1
+ 434 01fc 10       		.byte	0x10
+ 435 01fd 68000000 		.4byte	0x68
+ 436 0201 05       		.uleb128 0x5
+ 437 0202 03       		.byte	0x3
+ 438 0203 00000000 		.4byte	Contador
+ 439 0207 0B       		.uleb128 0xb
+ 440 0208 31010000 		.4byte	.LASF18
+ 441 020c 01       		.byte	0x1
+ 442 020d 11       		.byte	0x11
+ 443 020e 81000000 		.4byte	0x81
+ 444 0212 05       		.uleb128 0x5
+ 445 0213 03       		.byte	0x3
+ 446 0214 00000000 		.4byte	Distancia
+ 447 0218 0C       		.uleb128 0xc
+ 448 0219 8F000000 		.4byte	0x8f
+ 449 021d 28020000 		.4byte	0x228
+ 450 0221 0D       		.uleb128 0xd
+ 451 0222 9D000000 		.4byte	0x9d
+ 452 0226 08       		.byte	0x8
+ 453 0227 00       		.byte	0
+ 454 0228 0B       		.uleb128 0xb
+ 455 0229 F0010000 		.4byte	.LASF19
+ 456 022d 01       		.byte	0x1
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 10
+
+
+ 457 022e 12       		.byte	0x12
+ 458 022f 18020000 		.4byte	0x218
+ 459 0233 05       		.uleb128 0x5
+ 460 0234 03       		.byte	0x3
+ 461 0235 00000000 		.4byte	imprimir
+ 462 0239 0E       		.uleb128 0xe
+ 463 023a 31000000 		.4byte	.LASF20
+ 464 023e 31000000 		.4byte	.LASF20
+ 465 0242 05       		.byte	0x5
+ 466 0243 38       		.byte	0x38
+ 467 0244 0E       		.uleb128 0xe
+ 468 0245 3B010000 		.4byte	.LASF21
+ 469 0249 3B010000 		.4byte	.LASF21
+ 470 024d 06       		.byte	0x6
+ 471 024e 5A       		.byte	0x5a
+ 472 024f 0E       		.uleb128 0xe
+ 473 0250 6B010000 		.4byte	.LASF22
+ 474 0254 6B010000 		.4byte	.LASF22
+ 475 0258 05       		.byte	0x5
+ 476 0259 3D       		.byte	0x3d
+ 477 025a 0E       		.uleb128 0xe
+ 478 025b 21010000 		.4byte	.LASF23
+ 479 025f 21010000 		.4byte	.LASF23
+ 480 0263 05       		.byte	0x5
+ 481 0264 3C       		.byte	0x3c
+ 482 0265 0E       		.uleb128 0xe
+ 483 0266 78010000 		.4byte	.LASF24
+ 484 026a 78010000 		.4byte	.LASF24
+ 485 026e 07       		.byte	0x7
+ 486 026f 2F       		.byte	0x2f
+ 487 0270 0E       		.uleb128 0xe
+ 488 0271 2A020000 		.4byte	.LASF25
+ 489 0275 2A020000 		.4byte	.LASF25
+ 490 0279 08       		.byte	0x8
+ 491 027a 76       		.byte	0x76
+ 492 027b 0E       		.uleb128 0xe
+ 493 027c D7000000 		.4byte	.LASF26
+ 494 0280 D7000000 		.4byte	.LASF26
+ 495 0284 09       		.byte	0x9
+ 496 0285 29       		.byte	0x29
+ 497 0286 0E       		.uleb128 0xe
+ 498 0287 0A000000 		.4byte	.LASF27
+ 499 028b 0A000000 		.4byte	.LASF27
+ 500 028f 06       		.byte	0x6
+ 501 0290 69       		.byte	0x69
+ 502 0291 0E       		.uleb128 0xe
+ 503 0292 1A020000 		.4byte	.LASF28
+ 504 0296 1A020000 		.4byte	.LASF28
+ 505 029a 05       		.byte	0x5
+ 506 029b 62       		.byte	0x62
+ 507 029c 00       		.byte	0
+ 508              		.section	.debug_abbrev,"",%progbits
+ 509              	.Ldebug_abbrev0:
+ 510 0000 01       		.uleb128 0x1
+ 511 0001 11       		.uleb128 0x11
+ 512 0002 01       		.byte	0x1
+ 513 0003 25       		.uleb128 0x25
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 11
+
+
+ 514 0004 0E       		.uleb128 0xe
+ 515 0005 13       		.uleb128 0x13
+ 516 0006 0B       		.uleb128 0xb
+ 517 0007 03       		.uleb128 0x3
+ 518 0008 0E       		.uleb128 0xe
+ 519 0009 1B       		.uleb128 0x1b
+ 520 000a 0E       		.uleb128 0xe
+ 521 000b 55       		.uleb128 0x55
+ 522 000c 17       		.uleb128 0x17
+ 523 000d 11       		.uleb128 0x11
+ 524 000e 01       		.uleb128 0x1
+ 525 000f 10       		.uleb128 0x10
+ 526 0010 17       		.uleb128 0x17
+ 527 0011 00       		.byte	0
+ 528 0012 00       		.byte	0
+ 529 0013 02       		.uleb128 0x2
+ 530 0014 24       		.uleb128 0x24
+ 531 0015 00       		.byte	0
+ 532 0016 0B       		.uleb128 0xb
+ 533 0017 0B       		.uleb128 0xb
+ 534 0018 3E       		.uleb128 0x3e
+ 535 0019 0B       		.uleb128 0xb
+ 536 001a 03       		.uleb128 0x3
+ 537 001b 0E       		.uleb128 0xe
+ 538 001c 00       		.byte	0
+ 539 001d 00       		.byte	0
+ 540 001e 03       		.uleb128 0x3
+ 541 001f 16       		.uleb128 0x16
+ 542 0020 00       		.byte	0
+ 543 0021 03       		.uleb128 0x3
+ 544 0022 0E       		.uleb128 0xe
+ 545 0023 3A       		.uleb128 0x3a
+ 546 0024 0B       		.uleb128 0xb
+ 547 0025 3B       		.uleb128 0x3b
+ 548 0026 0B       		.uleb128 0xb
+ 549 0027 49       		.uleb128 0x49
+ 550 0028 13       		.uleb128 0x13
+ 551 0029 00       		.byte	0
+ 552 002a 00       		.byte	0
+ 553 002b 04       		.uleb128 0x4
+ 554 002c 24       		.uleb128 0x24
+ 555 002d 00       		.byte	0
+ 556 002e 0B       		.uleb128 0xb
+ 557 002f 0B       		.uleb128 0xb
+ 558 0030 3E       		.uleb128 0x3e
+ 559 0031 0B       		.uleb128 0xb
+ 560 0032 03       		.uleb128 0x3
+ 561 0033 08       		.uleb128 0x8
+ 562 0034 00       		.byte	0
+ 563 0035 00       		.byte	0
+ 564 0036 05       		.uleb128 0x5
+ 565 0037 2E       		.uleb128 0x2e
+ 566 0038 01       		.byte	0x1
+ 567 0039 3F       		.uleb128 0x3f
+ 568 003a 19       		.uleb128 0x19
+ 569 003b 03       		.uleb128 0x3
+ 570 003c 0E       		.uleb128 0xe
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 12
+
+
+ 571 003d 3A       		.uleb128 0x3a
+ 572 003e 0B       		.uleb128 0xb
+ 573 003f 3B       		.uleb128 0x3b
+ 574 0040 0B       		.uleb128 0xb
+ 575 0041 27       		.uleb128 0x27
+ 576 0042 19       		.uleb128 0x19
+ 577 0043 49       		.uleb128 0x49
+ 578 0044 13       		.uleb128 0x13
+ 579 0045 8701     		.uleb128 0x87
+ 580 0047 19       		.uleb128 0x19
+ 581 0048 11       		.uleb128 0x11
+ 582 0049 01       		.uleb128 0x1
+ 583 004a 12       		.uleb128 0x12
+ 584 004b 06       		.uleb128 0x6
+ 585 004c 40       		.uleb128 0x40
+ 586 004d 18       		.uleb128 0x18
+ 587 004e 9642     		.uleb128 0x2116
+ 588 0050 19       		.uleb128 0x19
+ 589 0051 01       		.uleb128 0x1
+ 590 0052 13       		.uleb128 0x13
+ 591 0053 00       		.byte	0
+ 592 0054 00       		.byte	0
+ 593 0055 06       		.uleb128 0x6
+ 594 0056 898201   		.uleb128 0x4109
+ 595 0059 00       		.byte	0
+ 596 005a 11       		.uleb128 0x11
+ 597 005b 01       		.uleb128 0x1
+ 598 005c 31       		.uleb128 0x31
+ 599 005d 13       		.uleb128 0x13
+ 600 005e 00       		.byte	0
+ 601 005f 00       		.byte	0
+ 602 0060 07       		.uleb128 0x7
+ 603 0061 898201   		.uleb128 0x4109
+ 604 0064 01       		.byte	0x1
+ 605 0065 11       		.uleb128 0x11
+ 606 0066 01       		.uleb128 0x1
+ 607 0067 31       		.uleb128 0x31
+ 608 0068 13       		.uleb128 0x13
+ 609 0069 01       		.uleb128 0x1
+ 610 006a 13       		.uleb128 0x13
+ 611 006b 00       		.byte	0
+ 612 006c 00       		.byte	0
+ 613 006d 08       		.uleb128 0x8
+ 614 006e 8A8201   		.uleb128 0x410a
+ 615 0071 00       		.byte	0
+ 616 0072 02       		.uleb128 0x2
+ 617 0073 18       		.uleb128 0x18
+ 618 0074 9142     		.uleb128 0x2111
+ 619 0076 18       		.uleb128 0x18
+ 620 0077 00       		.byte	0
+ 621 0078 00       		.byte	0
+ 622 0079 09       		.uleb128 0x9
+ 623 007a 34       		.uleb128 0x34
+ 624 007b 00       		.byte	0
+ 625 007c 03       		.uleb128 0x3
+ 626 007d 0E       		.uleb128 0xe
+ 627 007e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 13
+
+
+ 628 007f 0B       		.uleb128 0xb
+ 629 0080 3B       		.uleb128 0x3b
+ 630 0081 05       		.uleb128 0x5
+ 631 0082 49       		.uleb128 0x49
+ 632 0083 13       		.uleb128 0x13
+ 633 0084 3F       		.uleb128 0x3f
+ 634 0085 19       		.uleb128 0x19
+ 635 0086 3C       		.uleb128 0x3c
+ 636 0087 19       		.uleb128 0x19
+ 637 0088 00       		.byte	0
+ 638 0089 00       		.byte	0
+ 639 008a 0A       		.uleb128 0xa
+ 640 008b 35       		.uleb128 0x35
+ 641 008c 00       		.byte	0
+ 642 008d 49       		.uleb128 0x49
+ 643 008e 13       		.uleb128 0x13
+ 644 008f 00       		.byte	0
+ 645 0090 00       		.byte	0
+ 646 0091 0B       		.uleb128 0xb
+ 647 0092 34       		.uleb128 0x34
+ 648 0093 00       		.byte	0
+ 649 0094 03       		.uleb128 0x3
+ 650 0095 0E       		.uleb128 0xe
+ 651 0096 3A       		.uleb128 0x3a
+ 652 0097 0B       		.uleb128 0xb
+ 653 0098 3B       		.uleb128 0x3b
+ 654 0099 0B       		.uleb128 0xb
+ 655 009a 49       		.uleb128 0x49
+ 656 009b 13       		.uleb128 0x13
+ 657 009c 3F       		.uleb128 0x3f
+ 658 009d 19       		.uleb128 0x19
+ 659 009e 02       		.uleb128 0x2
+ 660 009f 18       		.uleb128 0x18
+ 661 00a0 00       		.byte	0
+ 662 00a1 00       		.byte	0
+ 663 00a2 0C       		.uleb128 0xc
+ 664 00a3 01       		.uleb128 0x1
+ 665 00a4 01       		.byte	0x1
+ 666 00a5 49       		.uleb128 0x49
+ 667 00a6 13       		.uleb128 0x13
+ 668 00a7 01       		.uleb128 0x1
+ 669 00a8 13       		.uleb128 0x13
+ 670 00a9 00       		.byte	0
+ 671 00aa 00       		.byte	0
+ 672 00ab 0D       		.uleb128 0xd
+ 673 00ac 21       		.uleb128 0x21
+ 674 00ad 00       		.byte	0
+ 675 00ae 49       		.uleb128 0x49
+ 676 00af 13       		.uleb128 0x13
+ 677 00b0 2F       		.uleb128 0x2f
+ 678 00b1 0B       		.uleb128 0xb
+ 679 00b2 00       		.byte	0
+ 680 00b3 00       		.byte	0
+ 681 00b4 0E       		.uleb128 0xe
+ 682 00b5 2E       		.uleb128 0x2e
+ 683 00b6 00       		.byte	0
+ 684 00b7 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 14
+
+
+ 685 00b8 19       		.uleb128 0x19
+ 686 00b9 3C       		.uleb128 0x3c
+ 687 00ba 19       		.uleb128 0x19
+ 688 00bb 6E       		.uleb128 0x6e
+ 689 00bc 0E       		.uleb128 0xe
+ 690 00bd 03       		.uleb128 0x3
+ 691 00be 0E       		.uleb128 0xe
+ 692 00bf 3A       		.uleb128 0x3a
+ 693 00c0 0B       		.uleb128 0xb
+ 694 00c1 3B       		.uleb128 0x3b
+ 695 00c2 0B       		.uleb128 0xb
+ 696 00c3 00       		.byte	0
+ 697 00c4 00       		.byte	0
+ 698 00c5 00       		.byte	0
+ 699              		.section	.debug_aranges,"",%progbits
+ 700 0000 1C000000 		.4byte	0x1c
+ 701 0004 0200     		.2byte	0x2
+ 702 0006 00000000 		.4byte	.Ldebug_info0
+ 703 000a 04       		.byte	0x4
+ 704 000b 00       		.byte	0
+ 705 000c 0000     		.2byte	0
+ 706 000e 0000     		.2byte	0
+ 707 0010 00000000 		.4byte	.LFB64
+ 708 0014 B0000000 		.4byte	.LFE64-.LFB64
+ 709 0018 00000000 		.4byte	0
+ 710 001c 00000000 		.4byte	0
+ 711              		.section	.debug_ranges,"",%progbits
+ 712              	.Ldebug_ranges0:
+ 713 0000 00000000 		.4byte	.LFB64
+ 714 0004 B0000000 		.4byte	.LFE64
+ 715 0008 00000000 		.4byte	0
+ 716 000c 00000000 		.4byte	0
+ 717              		.section	.debug_line,"",%progbits
+ 718              	.Ldebug_line0:
+ 719 0000 A1010000 		.section	.debug_str,"MS",%progbits,1
+ 719      02007501 
+ 719      00000201 
+ 719      FB0E0D00 
+ 719      01010101 
+ 720              	.LASF9:
+ 721 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 721      7433325F 
+ 721      7400
+ 722              	.LASF27:
+ 723 000a 54696D65 		.ascii	"Timer_ReadCounter\000"
+ 723      725F5265 
+ 723      6164436F 
+ 723      756E7465 
+ 723      7200
+ 724              	.LASF12:
+ 725 001c 646F7562 		.ascii	"double\000"
+ 725      6C6500
+ 726              	.LASF10:
+ 727 0023 696E7433 		.ascii	"int32_t\000"
+ 727      325F7400 
+ 728              	.LASF11:
+ 729 002b 666C6F61 		.ascii	"float\000"
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 15
+
+
+ 729      7400
+ 730              	.LASF20:
+ 731 0031 4C43445F 		.ascii	"LCD_Start\000"
+ 731      53746172 
+ 731      7400
+ 732              	.LASF1:
+ 733 003b 756E7369 		.ascii	"unsigned char\000"
+ 733      676E6564 
+ 733      20636861 
+ 733      7200
+ 734              	.LASF29:
+ 735 0049 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 735      43313120 
+ 735      352E342E 
+ 735      31203230 
+ 735      31363036 
+ 736 007c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 736      20726576 
+ 736      6973696F 
+ 736      6E203233 
+ 736      37373135 
+ 737 00af 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 737      66756E63 
+ 737      74696F6E 
+ 737      2D736563 
+ 737      74696F6E 
+ 738              	.LASF26:
+ 739 00d7 456B6B6F 		.ascii	"Ekko_Read\000"
+ 739      5F526561 
+ 739      6400
+ 740              	.LASF3:
+ 741 00e1 73686F72 		.ascii	"short unsigned int\000"
+ 741      7420756E 
+ 741      7369676E 
+ 741      65642069 
+ 741      6E7400
+ 742              	.LASF17:
+ 743 00f4 436F6E74 		.ascii	"Contador\000"
+ 743      61646F72 
+ 743      00
+ 744              	.LASF16:
+ 745 00fd 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 745      52784275 
+ 745      66666572 
+ 745      00
+ 746              	.LASF5:
+ 747 010a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 747      20756E73 
+ 747      69676E65 
+ 747      6420696E 
+ 747      7400
+ 748              	.LASF32:
+ 749 011c 6D61696E 		.ascii	"main\000"
+ 749      00
+ 750              	.LASF23:
+ 751 0121 4C43445F 		.ascii	"LCD_PrintString\000"
+ 751      5072696E 
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 16
+
+
+ 751      74537472 
+ 751      696E6700 
+ 752              	.LASF18:
+ 753 0131 44697374 		.ascii	"Distancia\000"
+ 753      616E6369 
+ 753      6100
+ 754              	.LASF21:
+ 755 013b 54696D65 		.ascii	"Timer_Start\000"
+ 755      725F5374 
+ 755      61727400 
+ 756              	.LASF8:
+ 757 0147 756E7369 		.ascii	"unsigned int\000"
+ 757      676E6564 
+ 757      20696E74 
+ 757      00
+ 758              	.LASF7:
+ 759 0154 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 759      206C6F6E 
+ 759      6720756E 
+ 759      7369676E 
+ 759      65642069 
+ 760              	.LASF22:
+ 761 016b 4C43445F 		.ascii	"LCD_Position\000"
+ 761      506F7369 
+ 761      74696F6E 
+ 761      00
+ 762              	.LASF24:
+ 763 0178 436F6E74 		.ascii	"Control_Write\000"
+ 763      726F6C5F 
+ 763      57726974 
+ 763      6500
+ 764              	.LASF15:
+ 765 0186 73697A65 		.ascii	"sizetype\000"
+ 765      74797065 
+ 765      00
+ 766              	.LASF6:
+ 767 018f 6C6F6E67 		.ascii	"long long int\000"
+ 767      206C6F6E 
+ 767      6720696E 
+ 767      7400
+ 768              	.LASF30:
+ 769 019d 6D61696E 		.ascii	"main.c\000"
+ 769      2E6300
+ 770              	.LASF13:
+ 771 01a4 63686172 		.ascii	"char\000"
+ 771      00
+ 772              	.LASF2:
+ 773 01a9 73686F72 		.ascii	"short int\000"
+ 773      7420696E 
+ 773      7400
+ 774              	.LASF31:
+ 775 01b3 433A5C55 		.ascii	"C:\\Users\\jdrd3\\Documents\\PSoC Creator\\Ejemplos"
+ 775      73657273 
+ 775      5C6A6472 
+ 775      64335C44 
+ 775      6F63756D 
+ 776 01e1 5C48432D 		.ascii	"\\HC-SR04.cydsn\000"
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccFjS02N.s 			page 17
+
+
+ 776      53523034 
+ 776      2E637964 
+ 776      736E00
+ 777              	.LASF19:
+ 778 01f0 696D7072 		.ascii	"imprimir\000"
+ 778      696D6972 
+ 778      00
+ 779              	.LASF4:
+ 780 01f9 6C6F6E67 		.ascii	"long int\000"
+ 780      20696E74 
+ 780      00
+ 781              	.LASF14:
+ 782 0202 6C6F6E67 		.ascii	"long double\000"
+ 782      20646F75 
+ 782      626C6500 
+ 783              	.LASF0:
+ 784 020e 7369676E 		.ascii	"signed char\000"
+ 784      65642063 
+ 784      68617200 
+ 785              	.LASF28:
+ 786 021a 4C43445F 		.ascii	"LCD_PrintNumber\000"
+ 786      5072696E 
+ 786      744E756D 
+ 786      62657200 
+ 787              	.LASF25:
+ 788 022a 43794465 		.ascii	"CyDelay\000"
+ 788      6C617900 
+ 789              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
