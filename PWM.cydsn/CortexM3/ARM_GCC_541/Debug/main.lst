@@ -1,0 +1,1257 @@
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Aumentar,"ax",%progbits
+  20              		.align	2
+  21              		.global	Aumentar
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Aumentar, %function
+  25              	Aumentar:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** int16 Contador;
+  15:main.c        **** 
+  16:main.c        ****  CY_ISR(Aumentar){
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  17:main.c        ****         LCD_Position(1,5);
+  36              		.loc 1 17 0
+  37 0002 0521     		movs	r1, #5
+  38 0004 0120     		movs	r0, #1
+  39 0006 FFF7FEFF 		bl	LCD_Position
+  40              	.LVL0:
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 2
+
+
+  18:main.c        ****         LCD_PrintString("         ");
+  41              		.loc 1 18 0
+  42 000a 1448     		ldr	r0, .L5
+  43 000c FFF7FEFF 		bl	LCD_PrintString
+  44              	.LVL1:
+  19:main.c        ****      Contador=Contador+30;  
+  45              		.loc 1 19 0
+  46 0010 134B     		ldr	r3, .L5+4
+  47 0012 B3F90020 		ldrsh	r2, [r3]
+  48 0016 02F11E00 		add	r0, r2, #30
+  49 001a 00B2     		sxth	r0, r0
+  50 001c 1880     		strh	r0, [r3]	@ movhi
+  20:main.c        ****         if (Contador<255){
+  51              		.loc 1 20 0
+  52 001e FE28     		cmp	r0, #254
+  53 0020 0BDC     		bgt	.L2
+  21:main.c        ****             PWM_WriteCompare(Contador);
+  54              		.loc 1 21 0
+  55 0022 C0B2     		uxtb	r0, r0
+  56 0024 FFF7FEFF 		bl	PWM_WriteCompare
+  57              	.LVL2:
+  22:main.c        ****           /*  ResetPWM_Write(1);
+  23:main.c        ****             ResetPWM_Write(0);*/
+  24:main.c        ****             LCD_Position(1,5);
+  58              		.loc 1 24 0
+  59 0028 0521     		movs	r1, #5
+  60 002a 0120     		movs	r0, #1
+  61 002c FFF7FEFF 		bl	LCD_Position
+  62              	.LVL3:
+  25:main.c        ****             LCD_PrintNumber(Contador);
+  63              		.loc 1 25 0
+  64 0030 0B4B     		ldr	r3, .L5+4
+  65 0032 1888     		ldrh	r0, [r3]
+  66 0034 FFF7FEFF 		bl	LCD_PrintNumber
+  67              	.LVL4:
+  68 0038 08E0     		b	.L3
+  69              	.L2:
+  26:main.c        ****         }else{
+  27:main.c        ****         
+  28:main.c        ****             Contador=Contador-30;
+  70              		.loc 1 28 0
+  71 003a 094C     		ldr	r4, .L5+4
+  72 003c 2280     		strh	r2, [r4]	@ movhi
+  29:main.c        ****             LCD_Position(1,5);
+  73              		.loc 1 29 0
+  74 003e 0521     		movs	r1, #5
+  75 0040 0120     		movs	r0, #1
+  76 0042 FFF7FEFF 		bl	LCD_Position
+  77              	.LVL5:
+  30:main.c        ****             LCD_PrintNumber(Contador);
+  78              		.loc 1 30 0
+  79 0046 2088     		ldrh	r0, [r4]
+  80 0048 FFF7FEFF 		bl	LCD_PrintNumber
+  81              	.LVL6:
+  82              	.L3:
+  31:main.c        ****         }
+  32:main.c        ****         CyDelay(500);
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 3
+
+
+  83              		.loc 1 32 0
+  84 004c 4FF4FA70 		mov	r0, #500
+  85 0050 FFF7FEFF 		bl	CyDelay
+  86              	.LVL7:
+  33:main.c        ****         InAumentar_ClearInterrupt();
+  87              		.loc 1 33 0
+  88 0054 FFF7FEFF 		bl	InAumentar_ClearInterrupt
+  89              	.LVL8:
+  90 0058 10BD     		pop	{r4, pc}
+  91              	.L6:
+  92 005a 00BF     		.align	2
+  93              	.L5:
+  94 005c 00000000 		.word	.LC0
+  95 0060 00000000 		.word	Contador
+  96              		.cfi_endproc
+  97              	.LFE63:
+  98              		.size	Aumentar, .-Aumentar
+  99              		.section	.text.Disminuir,"ax",%progbits
+ 100              		.align	2
+ 101              		.global	Disminuir
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.type	Disminuir, %function
+ 105              	Disminuir:
+ 106              	.LFB64:
+  34:main.c        ****     }
+  35:main.c        **** 
+  36:main.c        **** 
+  37:main.c        ****  CY_ISR(Disminuir){
+ 107              		.loc 1 37 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111 0000 10B5     		push	{r4, lr}
+ 112              		.cfi_def_cfa_offset 8
+ 113              		.cfi_offset 4, -8
+ 114              		.cfi_offset 14, -4
+  38:main.c        ****         LCD_Position(1,5);
+ 115              		.loc 1 38 0
+ 116 0002 0521     		movs	r1, #5
+ 117 0004 0120     		movs	r0, #1
+ 118 0006 FFF7FEFF 		bl	LCD_Position
+ 119              	.LVL9:
+  39:main.c        ****         LCD_PrintString("         ");
+ 120              		.loc 1 39 0
+ 121 000a 1448     		ldr	r0, .L11
+ 122 000c FFF7FEFF 		bl	LCD_PrintString
+ 123              	.LVL10:
+  40:main.c        ****          Contador=Contador-30;  
+ 124              		.loc 1 40 0
+ 125 0010 134B     		ldr	r3, .L11+4
+ 126 0012 B3F90020 		ldrsh	r2, [r3]
+ 127 0016 A2F11E00 		sub	r0, r2, #30
+ 128 001a 00B2     		sxth	r0, r0
+ 129 001c 1880     		strh	r0, [r3]	@ movhi
+  41:main.c        ****         if (Contador>0){
+ 130              		.loc 1 41 0
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 4
+
+
+ 131 001e 0028     		cmp	r0, #0
+ 132 0020 0BDD     		ble	.L8
+  42:main.c        ****             PWM_WriteCompare(Contador);
+ 133              		.loc 1 42 0
+ 134 0022 C0B2     		uxtb	r0, r0
+ 135 0024 FFF7FEFF 		bl	PWM_WriteCompare
+ 136              	.LVL11:
+  43:main.c        ****           /*  ResetPWM_Write(1);
+  44:main.c        ****             ResetPWM_Write(0);*/
+  45:main.c        ****             LCD_Position(1,5);
+ 137              		.loc 1 45 0
+ 138 0028 0521     		movs	r1, #5
+ 139 002a 0120     		movs	r0, #1
+ 140 002c FFF7FEFF 		bl	LCD_Position
+ 141              	.LVL12:
+  46:main.c        ****             LCD_PrintNumber(Contador);
+ 142              		.loc 1 46 0
+ 143 0030 0B4B     		ldr	r3, .L11+4
+ 144 0032 1888     		ldrh	r0, [r3]
+ 145 0034 FFF7FEFF 		bl	LCD_PrintNumber
+ 146              	.LVL13:
+ 147 0038 08E0     		b	.L9
+ 148              	.L8:
+  47:main.c        ****            
+  48:main.c        ****         }else{
+  49:main.c        ****         
+  50:main.c        ****         Contador=Contador+30;
+ 149              		.loc 1 50 0
+ 150 003a 094C     		ldr	r4, .L11+4
+ 151 003c 2280     		strh	r2, [r4]	@ movhi
+  51:main.c        ****             LCD_Position(1,5);
+ 152              		.loc 1 51 0
+ 153 003e 0521     		movs	r1, #5
+ 154 0040 0120     		movs	r0, #1
+ 155 0042 FFF7FEFF 		bl	LCD_Position
+ 156              	.LVL14:
+  52:main.c        ****             LCD_PrintNumber(Contador);
+ 157              		.loc 1 52 0
+ 158 0046 2088     		ldrh	r0, [r4]
+ 159 0048 FFF7FEFF 		bl	LCD_PrintNumber
+ 160              	.LVL15:
+ 161              	.L9:
+  53:main.c        ****         }
+  54:main.c        ****     CyDelay(500);
+ 162              		.loc 1 54 0
+ 163 004c 4FF4FA70 		mov	r0, #500
+ 164 0050 FFF7FEFF 		bl	CyDelay
+ 165              	.LVL16:
+  55:main.c        ****         InDisminuir_ClearInterrupt();
+ 166              		.loc 1 55 0
+ 167 0054 FFF7FEFF 		bl	InDisminuir_ClearInterrupt
+ 168              	.LVL17:
+ 169 0058 10BD     		pop	{r4, pc}
+ 170              	.L12:
+ 171 005a 00BF     		.align	2
+ 172              	.L11:
+ 173 005c 00000000 		.word	.LC0
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 5
+
+
+ 174 0060 00000000 		.word	Contador
+ 175              		.cfi_endproc
+ 176              	.LFE64:
+ 177              		.size	Disminuir, .-Disminuir
+ 178              		.section	.text.main,"ax",%progbits
+ 179              		.align	2
+ 180              		.global	main
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.type	main, %function
+ 184              	main:
+ 185              	.LFB65:
+  56:main.c        ****     
+  57:main.c        ****     }
+  58:main.c        **** 
+  59:main.c        **** 
+  60:main.c        **** 
+  61:main.c        **** 
+  62:main.c        **** int main(void)
+  63:main.c        **** {
+ 186              		.loc 1 63 0
+ 187              		.cfi_startproc
+ 188              		@ Volatile: function does not return.
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191 0000 08B5     		push	{r3, lr}
+ 192              		.cfi_def_cfa_offset 8
+ 193              		.cfi_offset 3, -8
+ 194              		.cfi_offset 14, -4
+  64:main.c        ****     
+  65:main.c        ****     LCD_Start();
+ 195              		.loc 1 65 0
+ 196 0002 FFF7FEFF 		bl	LCD_Start
+ 197              	.LVL18:
+  66:main.c        ****     LCD_Position(0,3);
+ 198              		.loc 1 66 0
+ 199 0006 0321     		movs	r1, #3
+ 200 0008 0020     		movs	r0, #0
+ 201 000a FFF7FEFF 		bl	LCD_Position
+ 202              	.LVL19:
+  67:main.c        ****     LCD_PrintString("CICLO UTIL:");
+ 203              		.loc 1 67 0
+ 204 000e 0B48     		ldr	r0, .L16
+ 205 0010 FFF7FEFF 		bl	LCD_PrintString
+ 206              	.LVL20:
+  68:main.c        **** 
+  69:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 207              		.loc 1 69 0
+ 208              		.syntax unified
+ 209              	@ 69 "main.c" 1
+ 210 0014 62B6     		CPSIE   i
+ 211              	@ 0 "" 2
+  70:main.c        **** 
+  71:main.c        ****     Aumentar_StartEx(Aumentar);
+ 212              		.loc 1 71 0
+ 213              		.thumb
+ 214              		.syntax unified
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 6
+
+
+ 215 0016 0A48     		ldr	r0, .L16+4
+ 216 0018 FFF7FEFF 		bl	Aumentar_StartEx
+ 217              	.LVL21:
+  72:main.c        ****     Disminuir_StartEx(Disminuir);
+ 218              		.loc 1 72 0
+ 219 001c 0948     		ldr	r0, .L16+8
+ 220 001e FFF7FEFF 		bl	Disminuir_StartEx
+ 221              	.LVL22:
+  73:main.c        ****     
+  74:main.c        ****     PWM_Start();
+ 222              		.loc 1 74 0
+ 223 0022 FFF7FEFF 		bl	PWM_Start
+ 224              	.LVL23:
+  75:main.c        ****     Contador=101;
+ 225              		.loc 1 75 0
+ 226 0026 084C     		ldr	r4, .L16+12
+ 227 0028 6523     		movs	r3, #101
+ 228 002a 2380     		strh	r3, [r4]	@ movhi
+  76:main.c        ****     LCD_Position(1,5);
+ 229              		.loc 1 76 0
+ 230 002c 0521     		movs	r1, #5
+ 231 002e 0120     		movs	r0, #1
+ 232 0030 FFF7FEFF 		bl	LCD_Position
+ 233              	.LVL24:
+  77:main.c        ****     
+  78:main.c        ****     LCD_PrintNumber(Contador);
+ 234              		.loc 1 78 0
+ 235 0034 2088     		ldrh	r0, [r4]
+ 236 0036 FFF7FEFF 		bl	LCD_PrintNumber
+ 237              	.LVL25:
+ 238              	.L14:
+ 239 003a FEE7     		b	.L14
+ 240              	.L17:
+ 241              		.align	2
+ 242              	.L16:
+ 243 003c 0C000000 		.word	.LC1
+ 244 0040 00000000 		.word	Aumentar
+ 245 0044 00000000 		.word	Disminuir
+ 246 0048 00000000 		.word	Contador
+ 247              		.cfi_endproc
+ 248              	.LFE65:
+ 249              		.size	main, .-main
+ 250              		.comm	Contador,2,2
+ 251              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 252              		.align	2
+ 253              	.LC0:
+ 254 0000 20202020 		.ascii	"         \000"
+ 254      20202020 
+ 254      2000
+ 255 000a 0000     		.space	2
+ 256              	.LC1:
+ 257 000c 4349434C 		.ascii	"CICLO UTIL:\000"
+ 257      4F205554 
+ 257      494C3A00 
+ 258              		.text
+ 259              	.Letext0:
+ 260              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 7
+
+
+ 261              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 262              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 263              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 264              		.file 6 "Generated_Source\\PSoC5/LCD.h"
+ 265              		.file 7 "Generated_Source\\PSoC5/PWM.h"
+ 266              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
+ 267              		.file 9 "Generated_Source\\PSoC5/InAumentar.h"
+ 268              		.file 10 "Generated_Source\\PSoC5/InDisminuir.h"
+ 269              		.file 11 "Generated_Source\\PSoC5/Aumentar.h"
+ 270              		.file 12 "Generated_Source\\PSoC5/Disminuir.h"
+ 271              		.section	.debug_info,"",%progbits
+ 272              	.Ldebug_info0:
+ 273 0000 4E030000 		.4byte	0x34e
+ 274 0004 0400     		.2byte	0x4
+ 275 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 276 000a 04       		.byte	0x4
+ 277 000b 01       		.uleb128 0x1
+ 278 000c 31000000 		.4byte	.LASF32
+ 279 0010 0C       		.byte	0xc
+ 280 0011 E2010000 		.4byte	.LASF33
+ 281 0015 18010000 		.4byte	.LASF34
+ 282 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 283 001d 00000000 		.4byte	0
+ 284 0021 00000000 		.4byte	.Ldebug_line0
+ 285 0025 02       		.uleb128 0x2
+ 286 0026 01       		.byte	0x1
+ 287 0027 06       		.byte	0x6
+ 288 0028 32020000 		.4byte	.LASF0
+ 289 002c 02       		.uleb128 0x2
+ 290 002d 01       		.byte	0x1
+ 291 002e 08       		.byte	0x8
+ 292 002f 23000000 		.4byte	.LASF1
+ 293 0033 02       		.uleb128 0x2
+ 294 0034 02       		.byte	0x2
+ 295 0035 05       		.byte	0x5
+ 296 0036 09020000 		.4byte	.LASF2
+ 297 003a 02       		.uleb128 0x2
+ 298 003b 02       		.byte	0x2
+ 299 003c 07       		.byte	0x7
+ 300 003d D7000000 		.4byte	.LASF3
+ 301 0041 03       		.uleb128 0x3
+ 302 0042 00000000 		.4byte	.LASF9
+ 303 0046 02       		.byte	0x2
+ 304 0047 3F       		.byte	0x3f
+ 305 0048 4C000000 		.4byte	0x4c
+ 306 004c 02       		.uleb128 0x2
+ 307 004d 04       		.byte	0x4
+ 308 004e 05       		.byte	0x5
+ 309 004f 1D020000 		.4byte	.LASF4
+ 310 0053 02       		.uleb128 0x2
+ 311 0054 04       		.byte	0x4
+ 312 0055 07       		.byte	0x7
+ 313 0056 C5000000 		.4byte	.LASF5
+ 314 005a 02       		.uleb128 0x2
+ 315 005b 08       		.byte	0x8
+ 316 005c 05       		.byte	0x5
+ 317 005d BA010000 		.4byte	.LASF6
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 8
+
+
+ 318 0061 02       		.uleb128 0x2
+ 319 0062 08       		.byte	0x8
+ 320 0063 07       		.byte	0x7
+ 321 0064 73010000 		.4byte	.LASF7
+ 322 0068 04       		.uleb128 0x4
+ 323 0069 04       		.byte	0x4
+ 324 006a 05       		.byte	0x5
+ 325 006b 696E7400 		.ascii	"int\000"
+ 326 006f 02       		.uleb128 0x2
+ 327 0070 04       		.byte	0x4
+ 328 0071 07       		.byte	0x7
+ 329 0072 66010000 		.4byte	.LASF8
+ 330 0076 03       		.uleb128 0x3
+ 331 0077 97010000 		.4byte	.LASF10
+ 332 007b 03       		.byte	0x3
+ 333 007c 2C       		.byte	0x2c
+ 334 007d 41000000 		.4byte	0x41
+ 335 0081 05       		.uleb128 0x5
+ 336 0082 BF000000 		.4byte	.LASF11
+ 337 0086 04       		.byte	0x4
+ 338 0087 E801     		.2byte	0x1e8
+ 339 0089 33000000 		.4byte	0x33
+ 340 008d 02       		.uleb128 0x2
+ 341 008e 04       		.byte	0x4
+ 342 008f 04       		.byte	0x4
+ 343 0090 13000000 		.4byte	.LASF12
+ 344 0094 02       		.uleb128 0x2
+ 345 0095 08       		.byte	0x8
+ 346 0096 04       		.byte	0x4
+ 347 0097 00010000 		.4byte	.LASF13
+ 348 009b 02       		.uleb128 0x2
+ 349 009c 01       		.byte	0x1
+ 350 009d 08       		.byte	0x8
+ 351 009e E9010000 		.4byte	.LASF14
+ 352 00a2 02       		.uleb128 0x2
+ 353 00a3 08       		.byte	0x8
+ 354 00a4 04       		.byte	0x4
+ 355 00a5 26020000 		.4byte	.LASF15
+ 356 00a9 02       		.uleb128 0x2
+ 357 00aa 04       		.byte	0x4
+ 358 00ab 07       		.byte	0x7
+ 359 00ac 9F010000 		.4byte	.LASF16
+ 360 00b0 06       		.uleb128 0x6
+ 361 00b1 0A000000 		.4byte	.LASF17
+ 362 00b5 01       		.byte	0x1
+ 363 00b6 10       		.byte	0x10
+ 364 00b7 00000000 		.4byte	.LFB63
+ 365 00bb 64000000 		.4byte	.LFE63-.LFB63
+ 366 00bf 01       		.uleb128 0x1
+ 367 00c0 9C       		.byte	0x9c
+ 368 00c1 5E010000 		.4byte	0x15e
+ 369 00c5 07       		.uleb128 0x7
+ 370 00c6 0A000000 		.4byte	.LVL0
+ 371 00ca D8020000 		.4byte	0x2d8
+ 372 00ce DD000000 		.4byte	0xdd
+ 373 00d2 08       		.uleb128 0x8
+ 374 00d3 01       		.uleb128 0x1
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 9
+
+
+ 375 00d4 50       		.byte	0x50
+ 376 00d5 01       		.uleb128 0x1
+ 377 00d6 31       		.byte	0x31
+ 378 00d7 08       		.uleb128 0x8
+ 379 00d8 01       		.uleb128 0x1
+ 380 00d9 51       		.byte	0x51
+ 381 00da 01       		.uleb128 0x1
+ 382 00db 35       		.byte	0x35
+ 383 00dc 00       		.byte	0
+ 384 00dd 07       		.uleb128 0x7
+ 385 00de 10000000 		.4byte	.LVL1
+ 386 00e2 E3020000 		.4byte	0x2e3
+ 387 00e6 F4000000 		.4byte	0xf4
+ 388 00ea 08       		.uleb128 0x8
+ 389 00eb 01       		.uleb128 0x1
+ 390 00ec 50       		.byte	0x50
+ 391 00ed 05       		.uleb128 0x5
+ 392 00ee 03       		.byte	0x3
+ 393 00ef 00000000 		.4byte	.LC0
+ 394 00f3 00       		.byte	0
+ 395 00f4 09       		.uleb128 0x9
+ 396 00f5 28000000 		.4byte	.LVL2
+ 397 00f9 EE020000 		.4byte	0x2ee
+ 398 00fd 07       		.uleb128 0x7
+ 399 00fe 30000000 		.4byte	.LVL3
+ 400 0102 D8020000 		.4byte	0x2d8
+ 401 0106 15010000 		.4byte	0x115
+ 402 010a 08       		.uleb128 0x8
+ 403 010b 01       		.uleb128 0x1
+ 404 010c 50       		.byte	0x50
+ 405 010d 01       		.uleb128 0x1
+ 406 010e 31       		.byte	0x31
+ 407 010f 08       		.uleb128 0x8
+ 408 0110 01       		.uleb128 0x1
+ 409 0111 51       		.byte	0x51
+ 410 0112 01       		.uleb128 0x1
+ 411 0113 35       		.byte	0x35
+ 412 0114 00       		.byte	0
+ 413 0115 09       		.uleb128 0x9
+ 414 0116 38000000 		.4byte	.LVL4
+ 415 011a F9020000 		.4byte	0x2f9
+ 416 011e 07       		.uleb128 0x7
+ 417 011f 46000000 		.4byte	.LVL5
+ 418 0123 D8020000 		.4byte	0x2d8
+ 419 0127 36010000 		.4byte	0x136
+ 420 012b 08       		.uleb128 0x8
+ 421 012c 01       		.uleb128 0x1
+ 422 012d 50       		.byte	0x50
+ 423 012e 01       		.uleb128 0x1
+ 424 012f 31       		.byte	0x31
+ 425 0130 08       		.uleb128 0x8
+ 426 0131 01       		.uleb128 0x1
+ 427 0132 51       		.byte	0x51
+ 428 0133 01       		.uleb128 0x1
+ 429 0134 35       		.byte	0x35
+ 430 0135 00       		.byte	0
+ 431 0136 09       		.uleb128 0x9
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 10
+
+
+ 432 0137 4C000000 		.4byte	.LVL6
+ 433 013b F9020000 		.4byte	0x2f9
+ 434 013f 07       		.uleb128 0x7
+ 435 0140 54000000 		.4byte	.LVL7
+ 436 0144 04030000 		.4byte	0x304
+ 437 0148 54010000 		.4byte	0x154
+ 438 014c 08       		.uleb128 0x8
+ 439 014d 01       		.uleb128 0x1
+ 440 014e 50       		.byte	0x50
+ 441 014f 03       		.uleb128 0x3
+ 442 0150 0A       		.byte	0xa
+ 443 0151 F401     		.2byte	0x1f4
+ 444 0153 00       		.byte	0
+ 445 0154 09       		.uleb128 0x9
+ 446 0155 58000000 		.4byte	.LVL8
+ 447 0159 0F030000 		.4byte	0x30f
+ 448 015d 00       		.byte	0
+ 449 015e 06       		.uleb128 0x6
+ 450 015f EE010000 		.4byte	.LASF18
+ 451 0163 01       		.byte	0x1
+ 452 0164 25       		.byte	0x25
+ 453 0165 00000000 		.4byte	.LFB64
+ 454 0169 64000000 		.4byte	.LFE64-.LFB64
+ 455 016d 01       		.uleb128 0x1
+ 456 016e 9C       		.byte	0x9c
+ 457 016f 0C020000 		.4byte	0x20c
+ 458 0173 07       		.uleb128 0x7
+ 459 0174 0A000000 		.4byte	.LVL9
+ 460 0178 D8020000 		.4byte	0x2d8
+ 461 017c 8B010000 		.4byte	0x18b
+ 462 0180 08       		.uleb128 0x8
+ 463 0181 01       		.uleb128 0x1
+ 464 0182 50       		.byte	0x50
+ 465 0183 01       		.uleb128 0x1
+ 466 0184 31       		.byte	0x31
+ 467 0185 08       		.uleb128 0x8
+ 468 0186 01       		.uleb128 0x1
+ 469 0187 51       		.byte	0x51
+ 470 0188 01       		.uleb128 0x1
+ 471 0189 35       		.byte	0x35
+ 472 018a 00       		.byte	0
+ 473 018b 07       		.uleb128 0x7
+ 474 018c 10000000 		.4byte	.LVL10
+ 475 0190 E3020000 		.4byte	0x2e3
+ 476 0194 A2010000 		.4byte	0x1a2
+ 477 0198 08       		.uleb128 0x8
+ 478 0199 01       		.uleb128 0x1
+ 479 019a 50       		.byte	0x50
+ 480 019b 05       		.uleb128 0x5
+ 481 019c 03       		.byte	0x3
+ 482 019d 00000000 		.4byte	.LC0
+ 483 01a1 00       		.byte	0
+ 484 01a2 09       		.uleb128 0x9
+ 485 01a3 28000000 		.4byte	.LVL11
+ 486 01a7 EE020000 		.4byte	0x2ee
+ 487 01ab 07       		.uleb128 0x7
+ 488 01ac 30000000 		.4byte	.LVL12
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 11
+
+
+ 489 01b0 D8020000 		.4byte	0x2d8
+ 490 01b4 C3010000 		.4byte	0x1c3
+ 491 01b8 08       		.uleb128 0x8
+ 492 01b9 01       		.uleb128 0x1
+ 493 01ba 50       		.byte	0x50
+ 494 01bb 01       		.uleb128 0x1
+ 495 01bc 31       		.byte	0x31
+ 496 01bd 08       		.uleb128 0x8
+ 497 01be 01       		.uleb128 0x1
+ 498 01bf 51       		.byte	0x51
+ 499 01c0 01       		.uleb128 0x1
+ 500 01c1 35       		.byte	0x35
+ 501 01c2 00       		.byte	0
+ 502 01c3 09       		.uleb128 0x9
+ 503 01c4 38000000 		.4byte	.LVL13
+ 504 01c8 F9020000 		.4byte	0x2f9
+ 505 01cc 07       		.uleb128 0x7
+ 506 01cd 46000000 		.4byte	.LVL14
+ 507 01d1 D8020000 		.4byte	0x2d8
+ 508 01d5 E4010000 		.4byte	0x1e4
+ 509 01d9 08       		.uleb128 0x8
+ 510 01da 01       		.uleb128 0x1
+ 511 01db 50       		.byte	0x50
+ 512 01dc 01       		.uleb128 0x1
+ 513 01dd 31       		.byte	0x31
+ 514 01de 08       		.uleb128 0x8
+ 515 01df 01       		.uleb128 0x1
+ 516 01e0 51       		.byte	0x51
+ 517 01e1 01       		.uleb128 0x1
+ 518 01e2 35       		.byte	0x35
+ 519 01e3 00       		.byte	0
+ 520 01e4 09       		.uleb128 0x9
+ 521 01e5 4C000000 		.4byte	.LVL15
+ 522 01e9 F9020000 		.4byte	0x2f9
+ 523 01ed 07       		.uleb128 0x7
+ 524 01ee 54000000 		.4byte	.LVL16
+ 525 01f2 04030000 		.4byte	0x304
+ 526 01f6 02020000 		.4byte	0x202
+ 527 01fa 08       		.uleb128 0x8
+ 528 01fb 01       		.uleb128 0x1
+ 529 01fc 50       		.byte	0x50
+ 530 01fd 03       		.uleb128 0x3
+ 531 01fe 0A       		.byte	0xa
+ 532 01ff F401     		.2byte	0x1f4
+ 533 0201 00       		.byte	0
+ 534 0202 09       		.uleb128 0x9
+ 535 0203 58000000 		.4byte	.LVL17
+ 536 0207 1A030000 		.4byte	0x31a
+ 537 020b 00       		.byte	0
+ 538 020c 0A       		.uleb128 0xa
+ 539 020d 61010000 		.4byte	.LASF35
+ 540 0211 01       		.byte	0x1
+ 541 0212 3E       		.byte	0x3e
+ 542 0213 68000000 		.4byte	0x68
+ 543 0217 00000000 		.4byte	.LFB65
+ 544 021b 4C000000 		.4byte	.LFE65-.LFB65
+ 545 021f 01       		.uleb128 0x1
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 12
+
+
+ 546 0220 9C       		.byte	0x9c
+ 547 0221 B6020000 		.4byte	0x2b6
+ 548 0225 09       		.uleb128 0x9
+ 549 0226 06000000 		.4byte	.LVL18
+ 550 022a 25030000 		.4byte	0x325
+ 551 022e 07       		.uleb128 0x7
+ 552 022f 0E000000 		.4byte	.LVL19
+ 553 0233 D8020000 		.4byte	0x2d8
+ 554 0237 46020000 		.4byte	0x246
+ 555 023b 08       		.uleb128 0x8
+ 556 023c 01       		.uleb128 0x1
+ 557 023d 50       		.byte	0x50
+ 558 023e 01       		.uleb128 0x1
+ 559 023f 30       		.byte	0x30
+ 560 0240 08       		.uleb128 0x8
+ 561 0241 01       		.uleb128 0x1
+ 562 0242 51       		.byte	0x51
+ 563 0243 01       		.uleb128 0x1
+ 564 0244 33       		.byte	0x33
+ 565 0245 00       		.byte	0
+ 566 0246 07       		.uleb128 0x7
+ 567 0247 14000000 		.4byte	.LVL20
+ 568 024b E3020000 		.4byte	0x2e3
+ 569 024f 5D020000 		.4byte	0x25d
+ 570 0253 08       		.uleb128 0x8
+ 571 0254 01       		.uleb128 0x1
+ 572 0255 50       		.byte	0x50
+ 573 0256 05       		.uleb128 0x5
+ 574 0257 03       		.byte	0x3
+ 575 0258 0C000000 		.4byte	.LC1
+ 576 025c 00       		.byte	0
+ 577 025d 07       		.uleb128 0x7
+ 578 025e 1C000000 		.4byte	.LVL21
+ 579 0262 30030000 		.4byte	0x330
+ 580 0266 74020000 		.4byte	0x274
+ 581 026a 08       		.uleb128 0x8
+ 582 026b 01       		.uleb128 0x1
+ 583 026c 50       		.byte	0x50
+ 584 026d 05       		.uleb128 0x5
+ 585 026e 03       		.byte	0x3
+ 586 026f 00000000 		.4byte	Aumentar
+ 587 0273 00       		.byte	0
+ 588 0274 07       		.uleb128 0x7
+ 589 0275 22000000 		.4byte	.LVL22
+ 590 0279 3B030000 		.4byte	0x33b
+ 591 027d 8B020000 		.4byte	0x28b
+ 592 0281 08       		.uleb128 0x8
+ 593 0282 01       		.uleb128 0x1
+ 594 0283 50       		.byte	0x50
+ 595 0284 05       		.uleb128 0x5
+ 596 0285 03       		.byte	0x3
+ 597 0286 00000000 		.4byte	Disminuir
+ 598 028a 00       		.byte	0
+ 599 028b 09       		.uleb128 0x9
+ 600 028c 26000000 		.4byte	.LVL23
+ 601 0290 46030000 		.4byte	0x346
+ 602 0294 07       		.uleb128 0x7
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 13
+
+
+ 603 0295 34000000 		.4byte	.LVL24
+ 604 0299 D8020000 		.4byte	0x2d8
+ 605 029d AC020000 		.4byte	0x2ac
+ 606 02a1 08       		.uleb128 0x8
+ 607 02a2 01       		.uleb128 0x1
+ 608 02a3 50       		.byte	0x50
+ 609 02a4 01       		.uleb128 0x1
+ 610 02a5 31       		.byte	0x31
+ 611 02a6 08       		.uleb128 0x8
+ 612 02a7 01       		.uleb128 0x1
+ 613 02a8 51       		.byte	0x51
+ 614 02a9 01       		.uleb128 0x1
+ 615 02aa 35       		.byte	0x35
+ 616 02ab 00       		.byte	0
+ 617 02ac 09       		.uleb128 0x9
+ 618 02ad 3A000000 		.4byte	.LVL25
+ 619 02b1 F9020000 		.4byte	0x2f9
+ 620 02b5 00       		.byte	0
+ 621 02b6 0B       		.uleb128 0xb
+ 622 02b7 F3000000 		.4byte	.LASF19
+ 623 02bb 05       		.byte	0x5
+ 624 02bc 1207     		.2byte	0x712
+ 625 02be C2020000 		.4byte	0x2c2
+ 626 02c2 0C       		.uleb128 0xc
+ 627 02c3 76000000 		.4byte	0x76
+ 628 02c7 0D       		.uleb128 0xd
+ 629 02c8 EA000000 		.4byte	.LASF20
+ 630 02cc 01       		.byte	0x1
+ 631 02cd 0E       		.byte	0xe
+ 632 02ce 81000000 		.4byte	0x81
+ 633 02d2 05       		.uleb128 0x5
+ 634 02d3 03       		.byte	0x3
+ 635 02d4 00000000 		.4byte	Contador
+ 636 02d8 0E       		.uleb128 0xe
+ 637 02d9 8A010000 		.4byte	.LASF21
+ 638 02dd 8A010000 		.4byte	.LASF21
+ 639 02e1 06       		.byte	0x6
+ 640 02e2 3D       		.byte	0x3d
+ 641 02e3 0E       		.uleb128 0xe
+ 642 02e4 51010000 		.4byte	.LASF22
+ 643 02e8 51010000 		.4byte	.LASF22
+ 644 02ec 06       		.byte	0x6
+ 645 02ed 3C       		.byte	0x3c
+ 646 02ee 0E       		.uleb128 0xe
+ 647 02ef 07010000 		.4byte	.LASF23
+ 648 02f3 07010000 		.4byte	.LASF23
+ 649 02f7 07       		.byte	0x7
+ 650 02f8 C3       		.byte	0xc3
+ 651 02f9 0E       		.uleb128 0xe
+ 652 02fa 3E020000 		.4byte	.LASF24
+ 653 02fe 3E020000 		.4byte	.LASF24
+ 654 0302 06       		.byte	0x6
+ 655 0303 5F       		.byte	0x5f
+ 656 0304 0E       		.uleb128 0xe
+ 657 0305 69020000 		.4byte	.LASF25
+ 658 0309 69020000 		.4byte	.LASF25
+ 659 030d 08       		.byte	0x8
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 14
+
+
+ 660 030e 76       		.byte	0x76
+ 661 030f 0E       		.uleb128 0xe
+ 662 0310 C8010000 		.4byte	.LASF26
+ 663 0314 C8010000 		.4byte	.LASF26
+ 664 0318 09       		.byte	0x9
+ 665 0319 2B       		.byte	0x2b
+ 666 031a 0E       		.uleb128 0xe
+ 667 031b 4E020000 		.4byte	.LASF27
+ 668 031f 4E020000 		.4byte	.LASF27
+ 669 0323 0A       		.byte	0xa
+ 670 0324 2B       		.byte	0x2b
+ 671 0325 0E       		.uleb128 0xe
+ 672 0326 19000000 		.4byte	.LASF28
+ 673 032a 19000000 		.4byte	.LASF28
+ 674 032e 06       		.byte	0x6
+ 675 032f 38       		.byte	0x38
+ 676 0330 0E       		.uleb128 0xe
+ 677 0331 F8010000 		.4byte	.LASF29
+ 678 0335 F8010000 		.4byte	.LASF29
+ 679 0339 0B       		.byte	0xb
+ 680 033a 18       		.byte	0x18
+ 681 033b 0E       		.uleb128 0xe
+ 682 033c A8010000 		.4byte	.LASF30
+ 683 0340 A8010000 		.4byte	.LASF30
+ 684 0344 0C       		.byte	0xc
+ 685 0345 18       		.byte	0x18
+ 686 0346 0E       		.uleb128 0xe
+ 687 0347 13020000 		.4byte	.LASF31
+ 688 034b 13020000 		.4byte	.LASF31
+ 689 034f 07       		.byte	0x7
+ 690 0350 92       		.byte	0x92
+ 691 0351 00       		.byte	0
+ 692              		.section	.debug_abbrev,"",%progbits
+ 693              	.Ldebug_abbrev0:
+ 694 0000 01       		.uleb128 0x1
+ 695 0001 11       		.uleb128 0x11
+ 696 0002 01       		.byte	0x1
+ 697 0003 25       		.uleb128 0x25
+ 698 0004 0E       		.uleb128 0xe
+ 699 0005 13       		.uleb128 0x13
+ 700 0006 0B       		.uleb128 0xb
+ 701 0007 03       		.uleb128 0x3
+ 702 0008 0E       		.uleb128 0xe
+ 703 0009 1B       		.uleb128 0x1b
+ 704 000a 0E       		.uleb128 0xe
+ 705 000b 55       		.uleb128 0x55
+ 706 000c 17       		.uleb128 0x17
+ 707 000d 11       		.uleb128 0x11
+ 708 000e 01       		.uleb128 0x1
+ 709 000f 10       		.uleb128 0x10
+ 710 0010 17       		.uleb128 0x17
+ 711 0011 00       		.byte	0
+ 712 0012 00       		.byte	0
+ 713 0013 02       		.uleb128 0x2
+ 714 0014 24       		.uleb128 0x24
+ 715 0015 00       		.byte	0
+ 716 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 15
+
+
+ 717 0017 0B       		.uleb128 0xb
+ 718 0018 3E       		.uleb128 0x3e
+ 719 0019 0B       		.uleb128 0xb
+ 720 001a 03       		.uleb128 0x3
+ 721 001b 0E       		.uleb128 0xe
+ 722 001c 00       		.byte	0
+ 723 001d 00       		.byte	0
+ 724 001e 03       		.uleb128 0x3
+ 725 001f 16       		.uleb128 0x16
+ 726 0020 00       		.byte	0
+ 727 0021 03       		.uleb128 0x3
+ 728 0022 0E       		.uleb128 0xe
+ 729 0023 3A       		.uleb128 0x3a
+ 730 0024 0B       		.uleb128 0xb
+ 731 0025 3B       		.uleb128 0x3b
+ 732 0026 0B       		.uleb128 0xb
+ 733 0027 49       		.uleb128 0x49
+ 734 0028 13       		.uleb128 0x13
+ 735 0029 00       		.byte	0
+ 736 002a 00       		.byte	0
+ 737 002b 04       		.uleb128 0x4
+ 738 002c 24       		.uleb128 0x24
+ 739 002d 00       		.byte	0
+ 740 002e 0B       		.uleb128 0xb
+ 741 002f 0B       		.uleb128 0xb
+ 742 0030 3E       		.uleb128 0x3e
+ 743 0031 0B       		.uleb128 0xb
+ 744 0032 03       		.uleb128 0x3
+ 745 0033 08       		.uleb128 0x8
+ 746 0034 00       		.byte	0
+ 747 0035 00       		.byte	0
+ 748 0036 05       		.uleb128 0x5
+ 749 0037 16       		.uleb128 0x16
+ 750 0038 00       		.byte	0
+ 751 0039 03       		.uleb128 0x3
+ 752 003a 0E       		.uleb128 0xe
+ 753 003b 3A       		.uleb128 0x3a
+ 754 003c 0B       		.uleb128 0xb
+ 755 003d 3B       		.uleb128 0x3b
+ 756 003e 05       		.uleb128 0x5
+ 757 003f 49       		.uleb128 0x49
+ 758 0040 13       		.uleb128 0x13
+ 759 0041 00       		.byte	0
+ 760 0042 00       		.byte	0
+ 761 0043 06       		.uleb128 0x6
+ 762 0044 2E       		.uleb128 0x2e
+ 763 0045 01       		.byte	0x1
+ 764 0046 3F       		.uleb128 0x3f
+ 765 0047 19       		.uleb128 0x19
+ 766 0048 03       		.uleb128 0x3
+ 767 0049 0E       		.uleb128 0xe
+ 768 004a 3A       		.uleb128 0x3a
+ 769 004b 0B       		.uleb128 0xb
+ 770 004c 3B       		.uleb128 0x3b
+ 771 004d 0B       		.uleb128 0xb
+ 772 004e 27       		.uleb128 0x27
+ 773 004f 19       		.uleb128 0x19
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 16
+
+
+ 774 0050 11       		.uleb128 0x11
+ 775 0051 01       		.uleb128 0x1
+ 776 0052 12       		.uleb128 0x12
+ 777 0053 06       		.uleb128 0x6
+ 778 0054 40       		.uleb128 0x40
+ 779 0055 18       		.uleb128 0x18
+ 780 0056 9742     		.uleb128 0x2117
+ 781 0058 19       		.uleb128 0x19
+ 782 0059 01       		.uleb128 0x1
+ 783 005a 13       		.uleb128 0x13
+ 784 005b 00       		.byte	0
+ 785 005c 00       		.byte	0
+ 786 005d 07       		.uleb128 0x7
+ 787 005e 898201   		.uleb128 0x4109
+ 788 0061 01       		.byte	0x1
+ 789 0062 11       		.uleb128 0x11
+ 790 0063 01       		.uleb128 0x1
+ 791 0064 31       		.uleb128 0x31
+ 792 0065 13       		.uleb128 0x13
+ 793 0066 01       		.uleb128 0x1
+ 794 0067 13       		.uleb128 0x13
+ 795 0068 00       		.byte	0
+ 796 0069 00       		.byte	0
+ 797 006a 08       		.uleb128 0x8
+ 798 006b 8A8201   		.uleb128 0x410a
+ 799 006e 00       		.byte	0
+ 800 006f 02       		.uleb128 0x2
+ 801 0070 18       		.uleb128 0x18
+ 802 0071 9142     		.uleb128 0x2111
+ 803 0073 18       		.uleb128 0x18
+ 804 0074 00       		.byte	0
+ 805 0075 00       		.byte	0
+ 806 0076 09       		.uleb128 0x9
+ 807 0077 898201   		.uleb128 0x4109
+ 808 007a 00       		.byte	0
+ 809 007b 11       		.uleb128 0x11
+ 810 007c 01       		.uleb128 0x1
+ 811 007d 31       		.uleb128 0x31
+ 812 007e 13       		.uleb128 0x13
+ 813 007f 00       		.byte	0
+ 814 0080 00       		.byte	0
+ 815 0081 0A       		.uleb128 0xa
+ 816 0082 2E       		.uleb128 0x2e
+ 817 0083 01       		.byte	0x1
+ 818 0084 3F       		.uleb128 0x3f
+ 819 0085 19       		.uleb128 0x19
+ 820 0086 03       		.uleb128 0x3
+ 821 0087 0E       		.uleb128 0xe
+ 822 0088 3A       		.uleb128 0x3a
+ 823 0089 0B       		.uleb128 0xb
+ 824 008a 3B       		.uleb128 0x3b
+ 825 008b 0B       		.uleb128 0xb
+ 826 008c 27       		.uleb128 0x27
+ 827 008d 19       		.uleb128 0x19
+ 828 008e 49       		.uleb128 0x49
+ 829 008f 13       		.uleb128 0x13
+ 830 0090 8701     		.uleb128 0x87
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 17
+
+
+ 831 0092 19       		.uleb128 0x19
+ 832 0093 11       		.uleb128 0x11
+ 833 0094 01       		.uleb128 0x1
+ 834 0095 12       		.uleb128 0x12
+ 835 0096 06       		.uleb128 0x6
+ 836 0097 40       		.uleb128 0x40
+ 837 0098 18       		.uleb128 0x18
+ 838 0099 9742     		.uleb128 0x2117
+ 839 009b 19       		.uleb128 0x19
+ 840 009c 01       		.uleb128 0x1
+ 841 009d 13       		.uleb128 0x13
+ 842 009e 00       		.byte	0
+ 843 009f 00       		.byte	0
+ 844 00a0 0B       		.uleb128 0xb
+ 845 00a1 34       		.uleb128 0x34
+ 846 00a2 00       		.byte	0
+ 847 00a3 03       		.uleb128 0x3
+ 848 00a4 0E       		.uleb128 0xe
+ 849 00a5 3A       		.uleb128 0x3a
+ 850 00a6 0B       		.uleb128 0xb
+ 851 00a7 3B       		.uleb128 0x3b
+ 852 00a8 05       		.uleb128 0x5
+ 853 00a9 49       		.uleb128 0x49
+ 854 00aa 13       		.uleb128 0x13
+ 855 00ab 3F       		.uleb128 0x3f
+ 856 00ac 19       		.uleb128 0x19
+ 857 00ad 3C       		.uleb128 0x3c
+ 858 00ae 19       		.uleb128 0x19
+ 859 00af 00       		.byte	0
+ 860 00b0 00       		.byte	0
+ 861 00b1 0C       		.uleb128 0xc
+ 862 00b2 35       		.uleb128 0x35
+ 863 00b3 00       		.byte	0
+ 864 00b4 49       		.uleb128 0x49
+ 865 00b5 13       		.uleb128 0x13
+ 866 00b6 00       		.byte	0
+ 867 00b7 00       		.byte	0
+ 868 00b8 0D       		.uleb128 0xd
+ 869 00b9 34       		.uleb128 0x34
+ 870 00ba 00       		.byte	0
+ 871 00bb 03       		.uleb128 0x3
+ 872 00bc 0E       		.uleb128 0xe
+ 873 00bd 3A       		.uleb128 0x3a
+ 874 00be 0B       		.uleb128 0xb
+ 875 00bf 3B       		.uleb128 0x3b
+ 876 00c0 0B       		.uleb128 0xb
+ 877 00c1 49       		.uleb128 0x49
+ 878 00c2 13       		.uleb128 0x13
+ 879 00c3 3F       		.uleb128 0x3f
+ 880 00c4 19       		.uleb128 0x19
+ 881 00c5 02       		.uleb128 0x2
+ 882 00c6 18       		.uleb128 0x18
+ 883 00c7 00       		.byte	0
+ 884 00c8 00       		.byte	0
+ 885 00c9 0E       		.uleb128 0xe
+ 886 00ca 2E       		.uleb128 0x2e
+ 887 00cb 00       		.byte	0
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 18
+
+
+ 888 00cc 3F       		.uleb128 0x3f
+ 889 00cd 19       		.uleb128 0x19
+ 890 00ce 3C       		.uleb128 0x3c
+ 891 00cf 19       		.uleb128 0x19
+ 892 00d0 6E       		.uleb128 0x6e
+ 893 00d1 0E       		.uleb128 0xe
+ 894 00d2 03       		.uleb128 0x3
+ 895 00d3 0E       		.uleb128 0xe
+ 896 00d4 3A       		.uleb128 0x3a
+ 897 00d5 0B       		.uleb128 0xb
+ 898 00d6 3B       		.uleb128 0x3b
+ 899 00d7 0B       		.uleb128 0xb
+ 900 00d8 00       		.byte	0
+ 901 00d9 00       		.byte	0
+ 902 00da 00       		.byte	0
+ 903              		.section	.debug_aranges,"",%progbits
+ 904 0000 2C000000 		.4byte	0x2c
+ 905 0004 0200     		.2byte	0x2
+ 906 0006 00000000 		.4byte	.Ldebug_info0
+ 907 000a 04       		.byte	0x4
+ 908 000b 00       		.byte	0
+ 909 000c 0000     		.2byte	0
+ 910 000e 0000     		.2byte	0
+ 911 0010 00000000 		.4byte	.LFB63
+ 912 0014 64000000 		.4byte	.LFE63-.LFB63
+ 913 0018 00000000 		.4byte	.LFB64
+ 914 001c 64000000 		.4byte	.LFE64-.LFB64
+ 915 0020 00000000 		.4byte	.LFB65
+ 916 0024 4C000000 		.4byte	.LFE65-.LFB65
+ 917 0028 00000000 		.4byte	0
+ 918 002c 00000000 		.4byte	0
+ 919              		.section	.debug_ranges,"",%progbits
+ 920              	.Ldebug_ranges0:
+ 921 0000 00000000 		.4byte	.LFB63
+ 922 0004 64000000 		.4byte	.LFE63
+ 923 0008 00000000 		.4byte	.LFB64
+ 924 000c 64000000 		.4byte	.LFE64
+ 925 0010 00000000 		.4byte	.LFB65
+ 926 0014 4C000000 		.4byte	.LFE65
+ 927 0018 00000000 		.4byte	0
+ 928 001c 00000000 		.4byte	0
+ 929              		.section	.debug_line,"",%progbits
+ 930              	.Ldebug_line0:
+ 931 0000 FC010000 		.section	.debug_str,"MS",%progbits,1
+ 931      0200A701 
+ 931      00000201 
+ 931      FB0E0D00 
+ 931      01010101 
+ 932              	.LASF9:
+ 933 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 933      7433325F 
+ 933      7400
+ 934              	.LASF17:
+ 935 000a 41756D65 		.ascii	"Aumentar\000"
+ 935      6E746172 
+ 935      00
+ 936              	.LASF12:
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 19
+
+
+ 937 0013 666C6F61 		.ascii	"float\000"
+ 937      7400
+ 938              	.LASF28:
+ 939 0019 4C43445F 		.ascii	"LCD_Start\000"
+ 939      53746172 
+ 939      7400
+ 940              	.LASF1:
+ 941 0023 756E7369 		.ascii	"unsigned char\000"
+ 941      676E6564 
+ 941      20636861 
+ 941      7200
+ 942              	.LASF32:
+ 943 0031 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 943      43313120 
+ 943      352E342E 
+ 943      31203230 
+ 943      31363036 
+ 944 0064 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 944      20726576 
+ 944      6973696F 
+ 944      6E203233 
+ 944      37373135 
+ 945 0097 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 945      66756E63 
+ 945      74696F6E 
+ 945      2D736563 
+ 945      74696F6E 
+ 946              	.LASF11:
+ 947 00bf 696E7431 		.ascii	"int16\000"
+ 947      3600
+ 948              	.LASF5:
+ 949 00c5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 949      20756E73 
+ 949      69676E65 
+ 949      6420696E 
+ 949      7400
+ 950              	.LASF3:
+ 951 00d7 73686F72 		.ascii	"short unsigned int\000"
+ 951      7420756E 
+ 951      7369676E 
+ 951      65642069 
+ 951      6E7400
+ 952              	.LASF20:
+ 953 00ea 436F6E74 		.ascii	"Contador\000"
+ 953      61646F72 
+ 953      00
+ 954              	.LASF19:
+ 955 00f3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 955      52784275 
+ 955      66666572 
+ 955      00
+ 956              	.LASF13:
+ 957 0100 646F7562 		.ascii	"double\000"
+ 957      6C6500
+ 958              	.LASF23:
+ 959 0107 50574D5F 		.ascii	"PWM_WriteCompare\000"
+ 959      57726974 
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 20
+
+
+ 959      65436F6D 
+ 959      70617265 
+ 959      00
+ 960              	.LASF34:
+ 961 0118 433A5C55 		.ascii	"C:\\Users\\jdrd3\\Documents\\PSoC Creator\\Ejemplos"
+ 961      73657273 
+ 961      5C6A6472 
+ 961      64335C44 
+ 961      6F63756D 
+ 962 0146 5C50574D 		.ascii	"\\PWM.cydsn\000"
+ 962      2E637964 
+ 962      736E00
+ 963              	.LASF22:
+ 964 0151 4C43445F 		.ascii	"LCD_PrintString\000"
+ 964      5072696E 
+ 964      74537472 
+ 964      696E6700 
+ 965              	.LASF35:
+ 966 0161 6D61696E 		.ascii	"main\000"
+ 966      00
+ 967              	.LASF8:
+ 968 0166 756E7369 		.ascii	"unsigned int\000"
+ 968      676E6564 
+ 968      20696E74 
+ 968      00
+ 969              	.LASF7:
+ 970 0173 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 970      206C6F6E 
+ 970      6720756E 
+ 970      7369676E 
+ 970      65642069 
+ 971              	.LASF21:
+ 972 018a 4C43445F 		.ascii	"LCD_Position\000"
+ 972      506F7369 
+ 972      74696F6E 
+ 972      00
+ 973              	.LASF10:
+ 974 0197 696E7433 		.ascii	"int32_t\000"
+ 974      325F7400 
+ 975              	.LASF16:
+ 976 019f 73697A65 		.ascii	"sizetype\000"
+ 976      74797065 
+ 976      00
+ 977              	.LASF30:
+ 978 01a8 4469736D 		.ascii	"Disminuir_StartEx\000"
+ 978      696E7569 
+ 978      725F5374 
+ 978      61727445 
+ 978      7800
+ 979              	.LASF6:
+ 980 01ba 6C6F6E67 		.ascii	"long long int\000"
+ 980      206C6F6E 
+ 980      6720696E 
+ 980      7400
+ 981              	.LASF26:
+ 982 01c8 496E4175 		.ascii	"InAumentar_ClearInterrupt\000"
+ 982      6D656E74 
+ARM GAS  C:\Users\jdrd3\AppData\Local\Temp\ccWtiblr.s 			page 21
+
+
+ 982      61725F43 
+ 982      6C656172 
+ 982      496E7465 
+ 983              	.LASF33:
+ 984 01e2 6D61696E 		.ascii	"main.c\000"
+ 984      2E6300
+ 985              	.LASF14:
+ 986 01e9 63686172 		.ascii	"char\000"
+ 986      00
+ 987              	.LASF18:
+ 988 01ee 4469736D 		.ascii	"Disminuir\000"
+ 988      696E7569 
+ 988      7200
+ 989              	.LASF29:
+ 990 01f8 41756D65 		.ascii	"Aumentar_StartEx\000"
+ 990      6E746172 
+ 990      5F537461 
+ 990      72744578 
+ 990      00
+ 991              	.LASF2:
+ 992 0209 73686F72 		.ascii	"short int\000"
+ 992      7420696E 
+ 992      7400
+ 993              	.LASF31:
+ 994 0213 50574D5F 		.ascii	"PWM_Start\000"
+ 994      53746172 
+ 994      7400
+ 995              	.LASF4:
+ 996 021d 6C6F6E67 		.ascii	"long int\000"
+ 996      20696E74 
+ 996      00
+ 997              	.LASF15:
+ 998 0226 6C6F6E67 		.ascii	"long double\000"
+ 998      20646F75 
+ 998      626C6500 
+ 999              	.LASF0:
+ 1000 0232 7369676E 		.ascii	"signed char\000"
+ 1000      65642063 
+ 1000      68617200 
+ 1001              	.LASF24:
+ 1002 023e 4C43445F 		.ascii	"LCD_PrintNumber\000"
+ 1002      5072696E 
+ 1002      744E756D 
+ 1002      62657200 
+ 1003              	.LASF27:
+ 1004 024e 496E4469 		.ascii	"InDisminuir_ClearInterrupt\000"
+ 1004      736D696E 
+ 1004      7569725F 
+ 1004      436C6561 
+ 1004      72496E74 
+ 1005              	.LASF25:
+ 1006 0269 43794465 		.ascii	"CyDelay\000"
+ 1006      6C617900 
+ 1007              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
